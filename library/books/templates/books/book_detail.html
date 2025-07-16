@@ -2,39 +2,41 @@
 {% load static %}
 
 {% block sim %}
-<div class="book-detail">
-  <div class="book-cover">
-    <img class="mg" src="{{ MEDIA_URL }}{{ book.image }}" alt="Обложка {{ book.title }}" />
-  </div>
+<div class="container my-5">
+  <div class="row g-4 align-items-start">
+    <div class="col-md-4 text-center">
+      <img src="{{ MEDIA_URL }}{{ book.image }}" alt="Обложка {{ book.title }}" class="img-fluid rounded shadow-sm" style="max-height: 400px; object-fit: contain;" />
+    </div>
 
-  <div class="book-details">
-    <h1 class="book-title text-uppercase">{{ book.title }}</h1>
+    <div class="col-md-8">
+      <h1 class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px;">{{ book.title }}</h1>
+      <p class="mb-1"><strong>Автор:</strong> <em>{{ book.author }}</em></p>
+      <p class="mb-1"><strong>Жанр:</strong> <em>{{ book.genre }}</em></p>
+      <p class="mb-1"><strong>Дата публикации:</strong> <em>{{ book.publication_date }}</em></p>
+      <hr />
+      <p class="book-summary fs-5" style="white-space: pre-wrap;">{{ book.summary }}</p>
 
-    <p class="author">Автор: <span class="italic">{{ book.author }}</span></p>
-    <p class="book-summary">{{ book.summary }}</p>
-    <p class="publication-date">Жанр: <span class="italic">{{ book.genre }}</span></p>
-    <p class="release-date">Дата публикации: <span class="italic">{{ book.publication_date }}</span></p>
+      <form method="post" action="{% url 'add-book' user.username %}" class="d-flex align-items-center gap-2 mt-4">
+        {% csrf_token %}
+        <input type="hidden" name="book_id" value="{{ book.id }}" />
+        <label for="list_name" class="form-label mb-0 me-2 fw-semibold">Добавить в список:</label>
+        <select name="list_name" id="list_name" class="form-select w-auto">
+          <option value="planned">Запланировано</option>
+          <option value="reading">Читаю</option>
+          <option value="dropped">Брошено</option>
+          <option value="finished">Прочитано</option>
+        </select>
+        <button type="submit" class="btn btn-success">Внести</button>
+      </form>
 
-    <form method="post" action="{% url 'add-book' user.username %}" class="book-backlog-form mb-3">
-      {% csrf_token %}
-      <input type="hidden" name="book_id" value="{{ book.id }}" />
-      <label for="list_name" class="form-label">Добавить в списки:</label>
-      <select name="list_name" id="list_name" class="form-select d-inline-block w-auto me-2">
-        <option value="planned">Запланировано</option>
-        <option value="reading">Читаю</option>
-        <option value="dropped">Брошено</option>
-        <option value="finished">Прочитано</option>
-      </select>
-      <button type="submit" class="btn btn-success">Внести в список</button>
-    </form>
+      <form method="post" action="{% url 'remove-book' user.username %}" class="mt-3">
+        {% csrf_token %}
+        <input type="hidden" name="book_id" value="{{ book.id }}" />
+        <button type="submit" class="btn btn-outline-danger">Удалить из списка</button>
+      </form>
 
-    <form method="post" action="{% url 'remove-book' user.username %}" class="book-backlog-delete-form mb-3">
-      {% csrf_token %}
-      <input type="hidden" name="book_id" value="{{ book.id }}" />
-      <button type="submit" class="btn btn-danger">Удалить из списка</button>
-    </form>
-
-    <a href="{% url 'book-list' %}" class="back-link">Вернуться на главную</a>
+      <a href="{% url 'book-list' %}" class="btn btn-link mt-4">← Вернуться на главную</a>
+    </div>
   </div>
 </div>
 {% endblock sim %}
