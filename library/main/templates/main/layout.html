@@ -22,11 +22,8 @@
         <li><a href="{% url 'home' %}" class="nav">
           <img src="{% static 'main/img/qas.png' %}" alt="Главная" width="25" height="auto" /> ГЛАВНАЯ
         </a></li>
-        <li><a href="{% url 'book-list' %}" class="nav">
-          <img src="{% static 'main/img/sxz.png' %}" alt="Указатель" width="24" height="auto" /> КНИГИ
-        </a></li>
         <li><a href="{% url 'product-list' %}" class="nav">
-          <img src="{% static 'main/img/qawe.png' %}" alt="Каталог" width="24" height="auto" /> КАТАЛОГ
+          <img src="{% static 'main/img/sxz.png' %}" alt="Каталог" width="24" height="auto" /> КАТАЛОГ
         </a></li>
         <li><a href="{% url 'cart' %}" class="nav">
           <img src="{% static 'main/img/qawe.png' %}" alt="Корзина" width="24" height="auto" /> КОРЗИНА
@@ -58,7 +55,7 @@
           </li>
           <li>
             <a href="{% url 'register' %}" class="nav-item nav-link">
-              <img src="{% static 'main/img/bhh.png' %}" alt="Регистрация" width="25" height="auto" /> ЗАРЕГИСТРИРОВАТЬСЯ
+              <img src="{% static 'main/img/bhh.png' %}" alt="Регистрация" width="25" height="auto" /> РЕГИСТРАЦИЯ
             </a>
           </li>
         {% endif %}

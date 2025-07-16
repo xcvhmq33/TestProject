@@ -1,10 +1,9 @@
-from books.views import BookDetailView, BookListView
+from books.views import BookDetailView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
 urlpatterns = [
-    path("", BookListView.as_view(), name="book-list"),
     path("<slug:slug>", BookDetailView.as_view(), name="book-detail"),
 ]
 
