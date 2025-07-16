@@ -21,13 +21,13 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
     path("", include("main.urls")),
-    path("books/", include("books.urls")),
-    path("orders/", include("orders.urls")),
-    path("products/", include("products.urls")),
-    path("cart/", include("cart.urls")),
+    path("admin/", admin.site.urls),
     path("users/", include("users.urls")),
+    path("books/", include("books.urls")),
+    path("products/", include("products.urls")),
+    path("orders/", include("orders.urls")),
+    path("cart/", include("cart.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

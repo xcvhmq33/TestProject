@@ -2,23 +2,23 @@
 {% load crispy_forms_tags %}
 
 {% block sim %}
-<div class="content-section">
-  <form method="POST" novalidate>
-    {% csrf_token %}
-    <fieldset class="form-group">
-      <legend class="border-bottom mb-4">Войти</legend>
-      {{ form|crispy }}
-    </fieldset>
-    <div class="mb-3">
-      <button class="btn btn-outline-info" type="submit">Войти</button>
-    </div>
-  </form>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="card shadow-sm p-4" style="max-width: 400px; width: 100%;">
+    <h2 class="mb-4 text-center text-primary fw-bold border-bottom pb-3">Вход в аккаунт</h2>
+    <form method="POST" novalidate>
+      {% csrf_token %}
+      <fieldset class="mb-4">
+        {{ form|crispy }}
+      </fieldset>
+      <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">Войти</button>
+    </form>
 
-  <div class="border-top pt-3">
-    <small class="text-muted">
-      Нет аккаунта? 
-      <a href="{% url 'register' %}" class="ms-2">Зарегистрироваться</a>
-    </small>
+    <div class="mt-4 text-center border-top pt-3">
+      <small class="text-muted">
+        Нет аккаунта?
+        <a href="{% url 'register' %}" class="text-decoration-none ms-2 fw-semibold text-info">Зарегистрироваться</a>
+      </small>
+    </div>
   </div>
 </div>
 {% endblock sim %}

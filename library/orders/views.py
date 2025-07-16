@@ -75,7 +75,6 @@ class CheckoutView(LoginRequiredMixin, View):
             }
             return render(request, "orders/checkout.html", context)
 
-
 class OrderConfirmationView(LoginRequiredMixin, View):
     def get(self, request, order_id):
         order = get_object_or_404(Order, id=order_id, user=request.user)

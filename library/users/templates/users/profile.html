@@ -2,57 +2,75 @@
 {% load crispy_forms_tags %}
 
 {% block sim %}
-<div class="container mt-4">
-  <div class="row">
+<div class="container mt-5">
+  <div class="row gy-4">
     <div class="col-lg-8">
       <div class="d-flex align-items-center mb-4">
-        <img class="rounded-circle account-img me-3" src="{{ user.profile.image.url }}" alt="Изображение профиля" width="80" height="80" />
+        <img
+          src="{{ user.profile.image.url }}"
+          alt="Profile Image"
+          class="rounded-circle me-3"
+          width="100" height="100"
+          style="object-fit: cover; border: 3px solid #3f818c;"
+        />
         <div>
-          <h4 class="fw-bold mb-1">{{ user.username }}</h4>
-          <p class="text-secondary mb-0">{{ user.email }}</p>
+          <h3 class="fw-bold mb-1 text-primary">{{ user.username }}</h3>
+          <p class="text-muted mb-0">{{ user.email }}</p>
         </div>
       </div>
 
       {% for title, books in book_sections %}
-        <section class="mb-4">
-          <h4>{{ title }}</h4>
-          <div class="d-flex flex-wrap gap-2">
-            {% for book in books %}
-              <img src="{{ MEDIA_URL }}{{ book.image }}" alt="Обложка {{ book.title }}" width="100" height="100" class="rounded" />
-            {% empty %}
-              <p>Пока нет книг.</p>
-            {% endfor %}
-          </div>
-        </section>
+      <section class="mb-5">
+        <h4 class="mb-3 text-secondary border-bottom pb-2">{{ title }}</h4>
+        {% if books %}
+        <div class="d-flex flex-wrap gap-3">
+          {% for book in books %}
+            <img
+              src="{{ MEDIA_URL }}{{ book.image }}"
+              alt="Обложка {{ book.title }}"
+              width="90"
+              height="130"
+              class="rounded shadow-sm"
+              style="object-fit: cover; border: 1px solid #ddd;"
+              title="{{ book.title }}"
+            />
+          {% endfor %}
+        </div>
+        {% else %}
+          <p class="text-muted fst-italic">Пока нет книг.</p>
+        {% endif %}
+      </section>
       {% endfor %}
 
       {% if request.user == user %}
-        <form method="POST" enctype="multipart/form-data" class="mt-4">
-          {% csrf_token %}
-          <fieldset>
-            {{ u_form|crispy }}
-            {{ p_form|crispy }}
-          </fieldset>
-          <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
-        </form>
+      <form method="POST" enctype="multipart/form-data" class="mt-4">
+        {% csrf_token %}
+        <fieldset>
+          {{ u_form|crispy }}
+          {{ p_form|crispy }}
+        </fieldset>
+        <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+      </form>
       {% endif %}
     </div>
 
     <div class="col-lg-4">
-      <h4 class="mb-3">Мои заказы</h4>
+      <h4 class="mb-4 text-primary border-bottom pb-2">Мои заказы</h4>
       {% if orders %}
-        <div class="d-flex flex-column gap-3">
-          {% for order in orders %}
-            <div class="border rounded p-3">
-              <p class="mb-1"><strong>Дата:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
-              <p class="mb-1"><strong>Статус:</strong> {{ order.get_status_display }}</p>
-              <p class="mb-2"><strong>Сумма:</strong> {{ order.total_price }}₽</p>
-              <a href="{% url 'order-detail' order.id %}" class="btn btn-sm btn-outline-primary">Чек</a>
-            </div>
-          {% endfor %}
+      <div class="list-group">
+        {% for order in orders %}
+        <div class="list-group-item list-group-item-action mb-3 shadow-sm rounded">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <small class="text-muted">{{ order.created_at|date:"d.m.Y H:i" }}</small>
+            <span class="badge bg-info text-dark">{{ order.get_status_display }}</span>
+          </div>
+          <p class="mb-2 fw-semibold">Сумма: <span class="text-success">{{ order.total_price }}₽</span></p>
+          <a href="{% url 'order-detail' order.id %}" class="btn btn-sm btn-outline-primary w-100">Просмотреть чек</a>
         </div>
+        {% endfor %}
+      </div>
       {% else %}
-        <p class="text-muted">У вас пока нет заказов.</p>
+        <p class="text-muted fst-italic">У вас пока нет заказов.</p>
       {% endif %}
     </div>
   </div>

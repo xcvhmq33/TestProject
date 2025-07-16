@@ -2,25 +2,27 @@
 {% load crispy_forms_tags %}
 
 {% block sim %}
-<div class="content-section">
-  <form method="POST" novalidate>
-    {% csrf_token %}
-    <fieldset class="mb-4">
-      <legend class="border-bottom pb-2">
-        Да будет ваш приход в biblioteka благословен!
-      </legend>
-      {{ form|crispy }}
-    </fieldset>
-    <div class="mb-3">
-      <button class="btn btn-outline-info" type="submit">Вступить в ряды</button>
-    </div>
-  </form>
+<div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="card shadow-sm p-4 w-100" style="max-width: 480px; border-radius: 12px;">
+    <form method="POST" novalidate>
+      {% csrf_token %}
+      <fieldset class="mb-4">
+        <legend class="border-bottom pb-3 fw-semibold fs-4 text-center text-primary">
+          Да будет ваш приход в biblioteka благословен!
+        </legend>
+        {{ form|crispy }}
+      </fieldset>
+      <div class="d-grid mb-4">
+        <button class="btn btn-info btn-lg fw-semibold" type="submit">Вступить в ряды</button>
+      </div>
+    </form>
 
-  <div class="border-top pt-3">
-    <small class="text-muted">
-      Вы уже приняты в наши ряды именитых гостей? 
-      <a href="#" class="ms-2">Войти в логово пользователя</a>
-    </small>
+    <div class="text-center border-top pt-3">
+      <small class="text-muted">
+        Вы уже приняты в наши ряды именитых гостей? 
+        <a href="{% url 'login' %}" class="ms-2 text-decoration-none fw-semibold text-info">Войти в логово пользователя</a>
+      </small>
+    </div>
   </div>
 </div>
 {% endblock sim %}
