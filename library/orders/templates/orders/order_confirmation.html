@@ -1,10 +1,20 @@
 {% extends 'main/layout.html' %}
 
 {% block sim %}
-<div class="content-section text-center">
-  <h2 class="mb-4">Спасибо за заказ!</h2>
-  <p class="lead">Номер вашего заказа: <strong>#{{ order.id }}</strong></p>
-  <p>Доставка будет осуществлена по адресу: <strong>{{ order.address }}, {{ order.city }}</strong></p>
-  <a href="{% url 'home' %}" class="btn btn-primary mt-3">Вернуться на главную</a>
+<div class="content-section d-flex flex-column align-items-center justify-content-center py-5" style="min-height: 60vh;">
+  <div class="bg-light rounded-4 shadow p-5 text-center" style="max-width: 480px; width: 100%;">
+    <h2 class="mb-4 text-success fw-bold">Спасибо за заказ!</h2>
+    <p class="lead mb-3">Ваш заказ успешно оформлен.</p>
+    <p class="fs-5">
+      Номер заказа: <strong class="text-primary">#{{ order.id }}</strong>
+    </p>
+    <p class="mb-4">
+      Доставка будет по адресу:<br />
+      <strong>{{ order.address }}, {{ order.city }}</strong>
+    </p>
+    <a href="{% url 'home' %}" class="btn btn-primary btn-lg shadow-sm">
+      Вернуться на главную
+    </a>
+  </div>
 </div>
 {% endblock %}

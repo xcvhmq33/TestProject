@@ -2,47 +2,55 @@
 {% load static %}
 
 {% block sim %}
-<div class="container mt-4">
-  <h2 class="mb-4 text-center">Заказ №{{ order.id }}</h2>
+<div class="container mt-5">
+  <h2 class="mb-4 text-center fw-bold">Заказ №{{ order.id }}</h2>
 
-  <div class="mb-4">
-    <p><strong>Дата оформления:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
-    <p><strong>Статус:</strong> {{ order.get_status_display }}</p>
-    <p><strong>ФИО:</strong> {{ order.full_name }}</p>
-    <p><strong>Email:</strong> {{ order.email }}</p>
-    <p><strong>Адрес:</strong> {{ order.address }}</p>
-    <p><strong>Город:</strong> {{ order.city }}</p>
-    <p><strong>Почтовый код:</strong> {{ order.postal_code }}</p>
+  <div class="bg-light rounded-3 shadow-sm p-4 mb-5">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <p><strong>Дата оформления:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
+        <p><strong>Статус:</strong> <span class="badge bg-info text-dark">{{ order.get_status_display }}</span></p>
+        <p><strong>ФИО:</strong> {{ order.full_name }}</p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Email:</strong> {{ order.email }}</p>
+        <p><strong>Адрес:</strong> {{ order.address }}</p>
+        <p><strong>Город:</strong> {{ order.city }}</p>
+        <p><strong>Почтовый код:</strong> {{ order.postal_code }}</p>
+      </div>
+    </div>
   </div>
 
-  <h4 class="mb-3">Товары в заказе:</h4>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Товар</th>
-        <th>Цена</th>
-        <th>Количество</th>
-        <th>Сумма</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in order.items.all %}
-      <tr>
-        <td>{{ item.product.book.title }}</td>
-        <td>{{ item.product.price }}₽</td>
-        <td>{{ item.quantity }}</td>
-        <td>{{ item.total_price }}₽</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
-  <div class="text-end mt-3">
-    <h5><strong>Итого: {{ order.total_price }}₽</strong></h5>
+  <h4 class="mb-3">Товары в заказе</h4>
+  <div class="table-responsive shadow-sm rounded">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-secondary">
+        <tr>
+          <th>Товар</th>
+          <th>Цена</th>
+          <th>Количество</th>
+          <th>Сумма</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in order.items.all %}
+        <tr>
+          <td>{{ item.product.book.title }}</td>
+          <td>{{ item.product.price }}₽</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.total_price }}₽</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 
-  <div class="mt-4">
-    <a href="{% url 'profile' order.user.username %}" class="btn btn-outline-secondary">Назад в профиль</a>
+  <div class="text-end mt-4">
+    <h5 class="fw-bold">Итого: {{ order.total_price }}₽</h5>
+  </div>
+
+  <div class="mt-4 text-center">
+    <a href="{% url 'profile' order.user.username %}" class="btn btn-outline-primary px-4">Назад в профиль</a>
   </div>
 </div>
 {% endblock sim %}
