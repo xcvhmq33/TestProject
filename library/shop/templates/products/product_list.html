@@ -6,7 +6,7 @@
   <h2 class="mb-5 text-center" style="font-family: 'Century Gothic'; color: #2f4f4f;">Каталог товаров</h2>
 
   <form method="get" class="mb-4 text-center">
-    <label for="category" class="form-label fw-bold me-2"></label>
+    <label for="category" class="form-label fw-bold me-2">Категория:</label>
       <select name="category" id="category" onchange="this.form.submit()" class="form-select d-inline w-auto">
         <option value="">Все</option>
         {% for category in categories %}
@@ -21,7 +21,11 @@
     {% for product in products %}
       <div class="col-sm-6 col-md-4 col-lg-3 d-flex">
         <div class="card shadow-sm w-100">
-          <img src="{{ MEDIA_URL }}{{ product.book.image }}" class="card-img-top" alt="Обложка {{ product.book.title }}" style="height: 300px; object-fit: cover;">
+          <img src="{{ MEDIA_URL }}{{ product.book.image }}"
+               class="card-img-top"
+               alt="Обложка {{ product.book.title }}"
+               style="height: 250px; width: 100%; object-fit: contain; padding: 1rem;" />
+
 
           <div class="card-body d-flex flex-column">
             <h5 class="card-title mb-2">{{ product.book.title }}</h5>
