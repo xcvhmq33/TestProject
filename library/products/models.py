@@ -1,5 +1,6 @@
-from django.db import models
 from books.models import Book
+from django.db import models
+
 
 class Product(models.Model):
     price = models.DecimalField("Стоимость", max_digits=100, decimal_places=2)

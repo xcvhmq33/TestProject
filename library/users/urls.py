@@ -12,9 +12,7 @@ urlpatterns = [
         "logout/", LogoutView.as_view(template_name="users/logout.html"), name="logout"
     ),
     path("<str:username>", ProfileView.as_view(), name="profile"),
-    path(
-        "<str:username>/add-book/", AddBookToListView.as_view(), name="add-book"
-    ),
+    path("<str:username>/add-book/", AddBookToListView.as_view(), name="add-book"),
     path(
         "<str:username>/remove-book/",
         RemoveBookFromListView.as_view(),

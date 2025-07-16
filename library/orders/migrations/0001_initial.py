@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -15,30 +14,84 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Order',
+            name="Order",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('full_name', models.CharField(max_length=255, verbose_name='ФИО')),
-                ('email', models.EmailField(max_length=254, verbose_name='Почта')),
-                ('address', models.TextField(verbose_name='Адрес')),
-                ('city', models.CharField(max_length=127, verbose_name='Город')),
-                ('postal_code', models.CharField(max_length=20, verbose_name='Почтовый индекс')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Создан')),
-                ('status', models.CharField(choices=[('new', 'Новый'), ('processing', 'В обработке'), ('completed', 'Завершён'), ('cancelled', 'Отменён')], default='new', max_length=20, verbose_name='Статус')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='orders', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("full_name", models.CharField(max_length=255, verbose_name="ФИО")),
+                ("email", models.EmailField(max_length=254, verbose_name="Почта")),
+                ("address", models.TextField(verbose_name="Адрес")),
+                ("city", models.CharField(max_length=127, verbose_name="Город")),
+                (
+                    "postal_code",
+                    models.CharField(max_length=20, verbose_name="Почтовый индекс"),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="Создан"),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("new", "Новый"),
+                            ("processing", "В обработке"),
+                            ("completed", "Завершён"),
+                            ("cancelled", "Отменён"),
+                        ],
+                        default="new",
+                        max_length=20,
+                        verbose_name="Статус",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="orders",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Заказ',
-                'verbose_name_plural': 'Заказы',
+                "verbose_name": "Заказ",
+                "verbose_name_plural": "Заказы",
             },
         ),
         migrations.CreateModel(
-            name='OrderItem',
+            name="OrderItem",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.PositiveIntegerField(verbose_name='Количество')),
-                ('price', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Стоимость')),
-                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='items', to='orders.order')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("quantity", models.PositiveIntegerField(verbose_name="Количество")),
+                (
+                    "price",
+                    models.DecimalField(
+                        decimal_places=2, max_digits=10, verbose_name="Стоимость"
+                    ),
+                ),
+                (
+                    "order",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="items",
+                        to="orders.order",
+                    ),
+                ),
             ],
         ),
     ]

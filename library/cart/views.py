@@ -1,9 +1,8 @@
+from cart.models import CartItem, Product
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
-from cart.models import CartItem, Product
-
 
 
 class CartView(LoginRequiredMixin, View):

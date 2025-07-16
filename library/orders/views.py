@@ -1,3 +1,4 @@
+from cart.models import CartItem
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db import transaction
@@ -6,17 +7,17 @@ from django.views import View
 from django.views.generic import DetailView
 from orders.forms import OrderForm
 from orders.models import Order, OrderItem
-from cart.models import CartItem
 
 
 class OrderDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Order
-    template_name = 'orders/order_detail.html'
-    context_object_name = 'order'
+    template_name = "orders/order_detail.html"
+    context_object_name = "order"
 
     def test_func(self):
         order = self.get_object()
         return order.user == self.request.user
+
 
 class CheckoutView(LoginRequiredMixin, View):
     def get(self, request):
@@ -74,6 +75,7 @@ class CheckoutView(LoginRequiredMixin, View):
                 "cart_items": cart_items,
             }
             return render(request, "orders/checkout.html", context)
+
 
 class OrderConfirmationView(LoginRequiredMixin, View):
     def get(self, request, order_id):

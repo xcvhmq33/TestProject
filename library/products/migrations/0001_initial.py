@@ -5,28 +5,53 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('books', '0001_initial'),
+        ("books", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('price', models.DecimalField(decimal_places=2, max_digits=100, verbose_name='Стоимость')),
-                ('stock', models.PositiveIntegerField(verbose_name='На складе')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Создан')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Обновлен')),
-                ('book', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='products', to='books.book')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "price",
+                    models.DecimalField(
+                        decimal_places=2, max_digits=100, verbose_name="Стоимость"
+                    ),
+                ),
+                ("stock", models.PositiveIntegerField(verbose_name="На складе")),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="Создан"),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="Обновлен"),
+                ),
+                (
+                    "book",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="products",
+                        to="books.book",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Товар',
-                'verbose_name_plural': 'Товары',
-                'ordering': ('book',),
+                "verbose_name": "Товар",
+                "verbose_name_plural": "Товары",
+                "ordering": ("book",),
             },
         ),
     ]
