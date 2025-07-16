@@ -1,0 +1,60 @@
+{% extends 'main/layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block sim %}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="d-flex align-items-center mb-4">
+        <img class="rounded-circle account-img me-3" src="{{ user.profile.image.url }}" alt="Изображение профиля" width="80" height="80" />
+        <div>
+          <h4 class="fw-bold mb-1">{{ user.username }}</h4>
+          <p class="text-secondary mb-0">{{ user.email }}</p>
+        </div>
+      </div>
+
+      {% for title, books in book_sections %}
+        <section class="mb-4">
+          <h4>{{ title }}</h4>
+          <div class="d-flex flex-wrap gap-2">
+            {% for book in books %}
+              <img src="{{ MEDIA_URL }}{{ book.image }}" alt="Обложка {{ book.title }}" width="100" height="100" class="rounded" />
+            {% empty %}
+              <p>Пока нет книг.</p>
+            {% endfor %}
+          </div>
+        </section>
+      {% endfor %}
+
+      {% if request.user == user %}
+        <form method="POST" enctype="multipart/form-data" class="mt-4">
+          {% csrf_token %}
+          <fieldset>
+            {{ u_form|crispy }}
+            {{ p_form|crispy }}
+          </fieldset>
+          <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+        </form>
+      {% endif %}
+    </div>
+
+    <div class="col-lg-4">
+      <h4 class="mb-3">Мои заказы</h4>
+      {% if orders %}
+        <div class="d-flex flex-column gap-3">
+          {% for order in orders %}
+            <div class="border rounded p-3">
+              <p class="mb-1"><strong>Дата:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
+              <p class="mb-1"><strong>Статус:</strong> {{ order.get_status_display }}</p>
+              <p class="mb-2"><strong>Сумма:</strong> {{ order.total_price }}₽</p>
+              <a href="{% url 'order-detail' order.id %}" class="btn btn-sm btn-outline-primary">Чек</a>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-muted">У вас пока нет заказов.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock sim %}

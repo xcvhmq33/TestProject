@@ -1,0 +1,42 @@
+{% extends 'main/layout.html' %}
+{% block sim %}
+<div class="container mt-4">
+  <h2>Ваша корзина</h2>
+
+  {% if cart_items %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Книга</th>
+          <th>Количество</th>
+          <th>Цена</th>
+          <th>Итого</th>
+          <th>Действие</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart_items %}
+        <tr>
+          <td>{{ item.product.book.title }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.product.price }}₽</td>
+          <td>{{ item.total_price }}₽</td>
+          <td>
+            <form method="post" action="{% url 'remove-from-cart' item.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h4>Сумма заказа: {{ total_price }}₽</h4>
+    <a href="{% url 'checkout' %}" class="btn btn-success">Оформить заказ</a>
+
+  {% else %}
+    <p>Корзина пуста.</p>
+  {% endif %}
+</div>
+{% endblock %}

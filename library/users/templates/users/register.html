@@ -1,0 +1,26 @@
+{% extends 'main/layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block sim %}
+<div class="content-section">
+  <form method="POST" novalidate>
+    {% csrf_token %}
+    <fieldset class="mb-4">
+      <legend class="border-bottom pb-2">
+        Да будет ваш приход в biblioteka благословен!
+      </legend>
+      {{ form|crispy }}
+    </fieldset>
+    <div class="mb-3">
+      <button class="btn btn-outline-info" type="submit">Вступить в ряды</button>
+    </div>
+  </form>
+
+  <div class="border-top pt-3">
+    <small class="text-muted">
+      Вы уже приняты в наши ряды именитых гостей? 
+      <a href="#" class="ms-2">Войти в логово пользователя</a>
+    </small>
+  </div>
+</div>
+{% endblock sim %}

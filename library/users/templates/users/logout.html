@@ -1,0 +1,12 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block sim %}
+  <h2 class="text-center logout-message">Выход выполнен</h2>
+
+  <div class="border-top pt-3 text-center">
+    <img class="media mb-3" src="{% static 'main/img/bhh.png' %}" alt="logo" width="200" height="auto" />
+    <br />
+    <a href="{% url 'login' %}" class="back-link btn btn-link fw-bold login-link">ВОЙТИ</a>
+  </div>
+{% endblock sim %}

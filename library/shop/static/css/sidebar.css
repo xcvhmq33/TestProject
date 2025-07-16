@@ -1,0 +1,33 @@
+#sidebar {
+    margin-top: 20px;
+}
+
+#sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#sidebar li {
+    margin: 10px 0;
+}
+
+.nav.button {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 18px;
+    transition: transform 0.2s;
+}
+
+.nav.button:hover {
+    transform: scale(1.1);
+    color: #0056b3;
+}
+
+.selected a {
+    font-weight: bold;
+    color: #0056b3;
+}
+
+h3 {
+    text-align: center;
+}

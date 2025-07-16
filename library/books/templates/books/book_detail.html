@@ -1,0 +1,40 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block sim %}
+<div class="book-detail">
+  <div class="book-cover">
+    <img class="mg" src="{{ MEDIA_URL }}{{ book.image }}" alt="Обложка {{ book.title }}" />
+  </div>
+
+  <div class="book-details">
+    <h1 class="book-title text-uppercase">{{ book.title }}</h1>
+
+    <p class="author">Автор: <span class="italic">{{ book.author }}</span></p>
+    <p class="book-summary">{{ book.summary }}</p>
+    <p class="publication-date">Жанр: <span class="italic">{{ book.genre }}</span></p>
+    <p class="release-date">Дата публикации: <span class="italic">{{ book.publication_date }}</span></p>
+
+    <form method="post" action="{% url 'add-book' user.username %}" class="book-backlog-form mb-3">
+      {% csrf_token %}
+      <input type="hidden" name="book_id" value="{{ book.id }}" />
+      <label for="list_name" class="form-label">Добавить в списки:</label>
+      <select name="list_name" id="list_name" class="form-select d-inline-block w-auto me-2">
+        <option value="planned">Запланировано</option>
+        <option value="reading">Читаю</option>
+        <option value="dropped">Брошено</option>
+        <option value="finished">Прочитано</option>
+      </select>
+      <button type="submit" class="btn btn-success">Внести в список</button>
+    </form>
+
+    <form method="post" action="{% url 'remove-book' user.username %}" class="book-backlog-delete-form mb-3">
+      {% csrf_token %}
+      <input type="hidden" name="book_id" value="{{ book.id }}" />
+      <button type="submit" class="btn btn-danger">Удалить из списка</button>
+    </form>
+
+    <a href="{% url 'book-list' %}" class="back-link">Вернуться на главную</a>
+  </div>
+</div>
+{% endblock sim %}

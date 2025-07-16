@@ -1,0 +1,14 @@
+{% extends 'main/layout.html' %}
+{% load crispy_forms_tags %}
+{% block sim %}
+<div class="container mt-4">
+  <h2>Оформление заказа</h2>
+  <p>Сумма заказа: <strong>{{ total_price }}₽</strong></p>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary mt-3">Подтвердить заказ</button>
+  </form>
+</div>
+{% endblock %}
